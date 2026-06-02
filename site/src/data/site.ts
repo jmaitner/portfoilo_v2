@@ -15,3 +15,16 @@ export const stats = [
   { value: 'Live', label: 'Stripe payments in production' },
   { value: 'AI', label: 'quote & research engines deployed' },
 ];
+
+export const capabilities = [
+  'Astro',
+  'React',
+  'Next.js',
+  'TypeScript',
+  'Cloudflare Workers',
+  'Claude API',
+  'Python',
+  'Stripe',
+  'Tailwind',
+  'Google Apps Script',
+];

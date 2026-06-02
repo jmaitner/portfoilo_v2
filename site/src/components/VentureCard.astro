@@ -2,6 +2,7 @@
 import type { Venture } from '../data/ventures';
 import Badge from './Badge.astro';
 import Chip from './Chip.astro';
+import BrandTile from './BrandTile.astro';
 
 interface Props {
   venture: Venture;
@@ -9,38 +10,31 @@ interface Props {
 }
 const { venture, index } = Astro.props;
 const num = String(index + 1).padStart(2, '0');
-const grad = venture.gradient ?? ['#0E7C86', '#0A5A62'];
 ---
 <a
   href={`/work/${venture.slug}`}
-  class="reveal group relative flex flex-col overflow-hidden rounded-2xl border border-[--color-line] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+  class="reveal group relative flex flex-col overflow-hidden rounded-2xl border border-[--color-line] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
+  style={`--accent:${venture.accent}`}
 >
+  <!-- brand tile -->
   <div class="relative aspect-[16/10] overflow-hidden">
-    {
-      venture.cover ? (
-        <img
-          src={venture.cover}
-          alt={venture.name}
-          loading="lazy"
-          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      ) : (
-        <div
-          class="flex h-full w-full items-center justify-center"
-          style={`background:linear-gradient(135deg, ${grad[0]}, ${grad[1]})`}
-        >
-          <span class="font-display text-3xl font-semibold text-white/95">{venture.name}</span>
-        </div>
-      )
-    }
+    <div class="h-full w-full transition-transform duration-500 group-hover:scale-[1.04]">
+      <BrandTile brand={venture.brand} name={venture.name} accent={venture.accent} />
+    </div>
     <div class="absolute left-4 top-4">
       <Badge status={venture.status} />
     </div>
-    <span class="absolute right-4 top-4 font-display text-sm font-semibold text-white/85 mix-blend-difference">{num}</span>
+    <span
+      class="absolute right-4 top-4 font-display text-sm font-semibold"
+      style={`color:${venture.brand.tone === 'dark' ? 'rgba(255,255,255,.5)' : 'rgba(0,0,0,.35)'}`}
+      >{num}</span
+    >
+    <!-- accent baseline -->
+    <span class="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 transition-transform duration-500 group-hover:scale-x-100" style={`background:${venture.accent}`}></span>
   </div>
 
   <div class="flex flex-1 flex-col p-6">
-    <p class="text-xs font-semibold uppercase tracking-wider text-[--color-marine]">{venture.kicker}</p>
+    <p class="text-xs font-semibold uppercase tracking-wider" style={`color:${venture.accent}`}>{venture.kicker}</p>
     <h3 class="mt-1.5 font-display text-2xl font-semibold tracking-tight">{venture.name}</h3>
     <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{venture.tagline}</p>
 
@@ -49,7 +43,7 @@ const grad = venture.gradient ?? ['#0E7C86', '#0A5A62'];
       {venture.stack.length > 4 && <span class="self-center text-xs text-ink-soft/60">+{venture.stack.length - 4}</span>}
     </div>
 
-    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-[--color-marine]">
+    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-[--accent]">
       Read the case study
       <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
     </span>

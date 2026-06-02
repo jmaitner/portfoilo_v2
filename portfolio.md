@@ -12,7 +12,7 @@ This file is the **source data** for a portfolio website. It documents what each
 |---|------|----------------|-------|--------|-----------|
 | 1 | **La Lancha** (LuisBoat) | Booking + full ops backend for a Chicago private boat-charter business | Astro · Cloudflare Workers · Google Apps Script · Stripe · JotForm · Google Calendar/Sheets/Drive | **Shipped (live, paying client)** | Domain pending (`lanchaboat.com` / `la-lancha.com`); deploys to Cloudflare Workers |
 | 2 | **Grandson's Construction** | Contractor marketing site with an AI-powered instant-quote engine | Astro 6 · Tailwind 4 · Cloudflare Worker · Anthropic Claude API · Google Sheets | **Shipped (live)** | https://grandsons-construction.pages.dev |
-| 3 | **TDLR Guide** (Astro TDLRguide) | Comparison + directory site for Texas defensive-driving courses | Astro 4 · React · Tailwind · GA4 · multi-env CI | **Shipped (live)** | https://txcourseguide.com · https://tdlrguide.com |
+| 3 | **TX Course Guide** (Astro TDLRguide) | Comparison + directory site for Texas defensive-driving courses | Astro 4 · React · Tailwind · GA4 · multi-env CI | **Shipped (live)** | https://txcourseguide.com |
 | 4 | **Jackson-bot** | AI agent that answers recruiter questions about Jackson 24/7 | Cloudflare Workers · Claude Sonnet 4.6 · KV rate-limiting | **Shipped** | Deployed on Cloudflare Workers (URL not in repo) |
 | 5 | **Virginia DIC Course** | Submission-ready 16-module Virginia Driver Improvement Clinic course | DOCX authoring · legal-citation audit · 82 embedded graphics | **Shipped (submission-ready)** | N/A (regulatory deliverable) |
 | 6 | **CourtResearchTX** | Automated legal research bot for 25 Texas municipal courts | Node.js (ESM) · Claude Sonnet 4.6 · `web_search` tool | **Active tool** | N/A (CLI/data tool) |
@@ -74,9 +74,9 @@ This file is the **source data** for a portfolio website. It documents what each
   - **Stack:** **Astro 4.15** with **React** island components, **Tailwind**, TypeScript.
   - **Features:** City pages (Austin, Dallas, Houston, San Antonio, Harris County…), an **interactive eligibility checker**, court information pages, FAQ, data-driven from `providers.json` / `courts.json`.
   - **Infra:** Multi-environment builds (QA `qa.txcourseguide.com` / Prod `txcourseguide.com`), **GA4** analytics, **reCAPTCHA v3**, inline critical CSS to avoid unstyled-flash after CDN cache invalidation.
-  - _(Sister implementations exist in the same repo: a **Nuxt 3 / Vue** version powering `tdlrguide.com` with XLSX→JSON ingest scripts, and a newer **Next.js 16 + Prisma/SQLite** rebuild — see project #11.)_
+  - _(Sister implementations exist in the same repo: a **Nuxt 3 / Vue** version with XLSX→JSON ingest scripts, and a newer **Next.js 16 + Prisma/SQLite** rebuild — see project #11. The live site is **txcourseguide.com**.)_
 - **AI leverage:** None in the shipped site itself; competitor pricing data feeding it comes from project #10.
-- **Live link:** https://txcourseguide.com · https://tdlrguide.com
+- **Live link:** https://txcourseguide.com
 - **Repo link:** https://github.com/ventocis/rrsTdlrGuide.git
 - **Status:** **Shipped (live)** — actively deployed; last commit 2026-05-18.
 - **Assets:** `TDLR GUIDE LOGO.png`, alt-color logo, `public/logo.svg`.

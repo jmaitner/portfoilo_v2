@@ -35,6 +35,21 @@ const canonical = new URL(Astro.url.pathname, site.url).href;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+
+    <!-- Structured data -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: site.name,
+        url: site.url,
+        jobTitle: site.role,
+        email: `mailto:${site.email}`,
+        sameAs: [site.github, site.linkedin],
+        knowsAbout: ['Astro', 'React', 'Cloudflare Workers', 'Claude API', 'Stripe', 'AI engineering'],
+      })}
+    />
   </head>
   <body>
     <Nav />

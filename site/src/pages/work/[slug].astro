@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Badge from '../../components/Badge.astro';
 import Chip from '../../components/Chip.astro';
+import BrandTile from '../../components/BrandTile.astro';
 import { ventures } from '../../data/ventures';
 
 export function getStaticPaths() {
@@ -14,170 +15,167 @@ export function getStaticPaths() {
 const { venture, index } = Astro.props;
 const all = ventures;
 const next = all[(index + 1) % all.length];
-const grad = venture.gradient ?? ['#0E7C86', '#0A5A62'];
 ---
-<Base title={`${venture.name} — ${venture.kicker}`} description={venture.tagline} image={venture.cover ?? '/img/road-ready/rrs-logo.png'}>
-  <!-- HEADER -->
-  <section class="border-b border-[--color-line]">
-    <div class="mx-auto max-w-5xl px-6 pb-12 pt-12 md:pt-16">
-      <a href="/#work" class="text-sm font-medium text-ink-soft transition-colors hover:text-[--color-marine]">← All work</a>
-      <div class="mt-6 flex flex-wrap items-center gap-3">
-        <Badge status={venture.status} />
-        <span class="text-sm text-ink-soft">{venture.client}</span>
-      </div>
-      <h1 class="mt-4 display-lg max-w-3xl">{venture.name}</h1>
-      <p class="mt-4 max-w-2xl text-lg text-ink-soft">{venture.tagline}</p>
+<Base title={`${venture.name} — ${venture.kicker}`} description={venture.tagline} image={venture.cover ?? venture.brand.logo ?? '/img/logos/road-ready.png'}>
+  <div style={`--accent:${venture.accent}`}>
+    <!-- HEADER -->
+    <section class="border-b border-[--color-line]">
+      <div class="mx-auto max-w-5xl px-6 pb-12 pt-12 md:pt-16">
+        <a href="/#work" class="text-sm font-medium text-ink-soft transition-colors hover:text-[--accent]">← All work</a>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <Badge status={venture.status} />
+          <span class="text-sm text-ink-soft">{venture.client}</span>
+        </div>
+        <h1 class="mt-4 display-lg max-w-3xl">{venture.name}</h1>
+        <p class="mt-4 max-w-2xl text-lg text-ink-soft">{venture.tagline}</p>
 
-      <div class="mt-7 flex flex-wrap items-center gap-3">
-        {
-          venture.liveUrl ? (
-            <a
-              href={venture.liveUrl}
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
-            >
-              Visit {venture.liveLabel ?? 'live site'} ↗
-            </a>
-          ) : (
-            venture.liveLabel && (
-              <span class="inline-flex items-center gap-2 rounded-full border border-[--color-line] px-5 py-2.5 text-sm font-medium text-ink-soft">
-                {venture.liveLabel}
-              </span>
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          {
+            venture.liveUrl ? (
+              <a
+                href={venture.liveUrl}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                style={`background:${venture.accent}`}
+              >
+                Visit {venture.liveLabel ?? 'live site'} ↗
+              </a>
+            ) : (
+              venture.liveLabel && (
+                <span class="inline-flex items-center gap-2 rounded-full border border-[--color-line] px-5 py-2.5 text-sm font-medium text-ink-soft">
+                  {venture.liveLabel}
+                </span>
+              )
             )
-          )
-        }
-        {
-          venture.repoUrl && (
-            <a
-              href={venture.repoUrl}
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-[--color-marine] hover:text-[--color-marine]"
-            >
-              View repo ↗
-            </a>
-          )
-        }
-      </div>
+          }
+          {
+            venture.repoUrl && (
+              <a
+                href={venture.repoUrl}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 rounded-full border border-ink/20 px-5 py-2.5 text-sm font-semibold transition-colors hover:border-[--accent] hover:text-[--accent]"
+              >
+                View repo ↗
+              </a>
+            )
+          }
+        </div>
 
-      <div class="mt-7 flex flex-wrap gap-1.5">
-        {venture.stack.map((s) => <Chip label={s} />)}
+        <div class="mt-7 flex flex-wrap gap-1.5">
+          {venture.stack.map((s) => <Chip label={s} />)}
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- COVER -->
-  <section class="border-b border-[--color-line] bg-paper-dim/40">
-    <div class="mx-auto max-w-5xl px-6 py-10">
-      <div class="overflow-hidden rounded-2xl">
+    <!-- COVER -->
+    <section class="border-b border-[--color-line] bg-paper-dim/40">
+      <div class="mx-auto max-w-5xl px-6 py-10">
+        <div class="aspect-[16/8] overflow-hidden rounded-2xl border border-[--color-line]">
+          {
+            venture.cover ? (
+              <img src={venture.cover} alt={venture.name} class="h-full w-full object-cover" />
+            ) : (
+              <BrandTile brand={venture.brand} name={venture.name} accent={venture.accent} variant="hero" />
+            )
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- BODY -->
+    <section class="mx-auto max-w-3xl px-6 py-16 md:py-20">
+      <div class="space-y-14">
+        <div class="reveal">
+          <h2 class="font-display text-sm font-semibold uppercase tracking-wider" style={`color:${venture.accent}`}>The problem</h2>
+          <p class="mt-3 text-lg leading-relaxed">{venture.problem}</p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="font-display text-sm font-semibold uppercase tracking-wider" style={`color:${venture.accent}`}>What I built</h2>
+          <p class="mt-3 text-lg leading-relaxed">{venture.built}</p>
+        </div>
+
+        <div class="reveal rounded-2xl border p-7" style={`border-color:${venture.accent}40; background:${venture.accent}0D`}>
+          <h2 class="flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-wider" style={`color:${venture.accent}`}>
+            <span class="inline-block h-2 w-2 rounded-full" style={`background:${venture.accent}`}></span> How AI was leveraged
+          </h2>
+          <p class="mt-3 leading-relaxed text-ink">{venture.ai}</p>
+        </div>
+
+        <div class="reveal">
+          <h2 class="font-display text-sm font-semibold uppercase tracking-wider" style={`color:${venture.accent}`}>Engineering highlights</h2>
+          <ul class="mt-4 space-y-3">
+            {
+              venture.highlights.map((h) => (
+                <li class="flex gap-3">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full" style={`background:${venture.accent}`} />
+                  <span class="leading-relaxed">{h}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
         {
-          venture.cover ? (
-            <img src={venture.cover} alt={venture.name} class="h-full w-full object-cover" />
-          ) : (
-            <div
-              class="flex aspect-[16/8] items-center justify-center"
-              style={`background:linear-gradient(135deg, ${grad[0]}, ${grad[1]})`}
-            >
-              <span class="font-display text-5xl font-semibold text-white">{venture.name}</span>
+          venture.subProjects && (
+            <div class="reveal">
+              <h2 class="font-display text-sm font-semibold uppercase tracking-wider" style={`color:${venture.accent}`}>Inside the venture</h2>
+              <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                {venture.subProjects.map((sp) => (
+                  <div class="rounded-xl border border-[--color-line] bg-white p-5 transition-colors hover:border-[--accent]">
+                    {sp.link ? (
+                      <a href={sp.link} target="_blank" rel="noopener" class="font-display text-lg font-semibold transition-colors hover:text-[--accent]">
+                        {sp.name} <span class="text-sm">↗</span>
+                      </a>
+                    ) : (
+                      <span class="font-display text-lg font-semibold">{sp.name}</span>
+                    )}
+                    <p class="mt-1.5 text-sm leading-relaxed text-ink-soft">{sp.blurb}</p>
+                    <div class="mt-3 flex flex-wrap gap-1.5">
+                      {sp.stack.map((s) => <Chip label={s} />)}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )
         }
-      </div>
-    </div>
-  </section>
 
-  <!-- BODY -->
-  <section class="mx-auto max-w-3xl px-6 py-16 md:py-20">
-    <div class="space-y-14">
-      <div class="reveal">
-        <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-[--color-marine]">The problem</h2>
-        <p class="mt-3 text-lg leading-relaxed">{venture.problem}</p>
+        <div class="reveal rounded-2xl bg-ink p-7 text-paper">
+          <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-[--color-amber]">Outcome</h2>
+          <p class="mt-3 text-lg leading-relaxed">{venture.outcome}</p>
+        </div>
       </div>
+    </section>
 
-      <div class="reveal">
-        <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-[--color-marine]">What I built</h2>
-        <p class="mt-3 text-lg leading-relaxed">{venture.built}</p>
-      </div>
-
-      <div class="reveal rounded-2xl border border-[--color-marine]/25 bg-[--color-marine-wash]/50 p-7">
-        <h2 class="flex items-center gap-2 font-display text-sm font-semibold uppercase tracking-wider text-[--color-marine-dark]">
-          <span class="inline-block h-2 w-2 rounded-full bg-[--color-marine]"></span> How AI was leveraged
-        </h2>
-        <p class="mt-3 leading-relaxed text-ink">{venture.ai}</p>
-      </div>
-
-      <div class="reveal">
-        <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-[--color-marine]">Engineering highlights</h2>
-        <ul class="mt-4 space-y-3">
-          {
-            venture.highlights.map((h) => (
-              <li class="flex gap-3">
-                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[--color-amber]" />
-                <span class="leading-relaxed">{h}</span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      {
-        venture.subProjects && (
-          <div class="reveal">
-            <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-[--color-marine]">Inside the venture</h2>
-            <div class="mt-4 grid gap-4 sm:grid-cols-2">
-              {venture.subProjects.map((sp) => (
-                <div class="rounded-xl border border-[--color-line] bg-white p-5">
-                  {sp.link ? (
-                    <a href={sp.link} target="_blank" rel="noopener" class="font-display text-lg font-semibold transition-colors hover:text-[--color-marine]">
-                      {sp.name} <span class="text-sm">↗</span>
-                    </a>
-                  ) : (
-                    <span class="font-display text-lg font-semibold">{sp.name}</span>
-                  )}
-                  <p class="mt-1.5 text-sm leading-relaxed text-ink-soft">{sp.blurb}</p>
-                  <div class="mt-3 flex flex-wrap gap-1.5">
-                    {sp.stack.map((s) => <Chip label={s} />)}
-                  </div>
+    <!-- GALLERY -->
+    {
+      venture.gallery && venture.gallery.length > 0 && (
+        <section class="border-t border-[--color-line] bg-paper-dim/40">
+          <div class="mx-auto max-w-6xl px-6 py-16">
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {venture.gallery.map((g) => (
+                <div class="reveal overflow-hidden rounded-xl border border-[--color-line]">
+                  <img src={g} alt={`${venture.name} gallery`} loading="lazy" class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
                 </div>
               ))}
             </div>
           </div>
-        )
-      }
+        </section>
+      )
+    }
 
-      <div class="reveal rounded-2xl bg-ink p-7 text-paper">
-        <h2 class="font-display text-sm font-semibold uppercase tracking-wider text-[--color-amber]">Outcome</h2>
-        <p class="mt-3 text-lg leading-relaxed">{venture.outcome}</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  {
-    venture.gallery && venture.gallery.length > 0 && (
-      <section class="border-t border-[--color-line] bg-paper-dim/40">
-        <div class="mx-auto max-w-6xl px-6 py-16">
-          <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {venture.gallery.map((g) => (
-              <div class="reveal overflow-hidden rounded-xl">
-                <img src={g} alt={`${venture.name} gallery`} loading="lazy" class="aspect-[4/3] h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
-              </div>
-            ))}
-          </div>
+    <!-- NEXT -->
+    <section class="mx-auto max-w-5xl px-6 py-16">
+      <a href={`/work/${next.slug}`} class="group flex items-center justify-between gap-4 rounded-2xl border border-[--color-line] bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-lg" style={`--accent:${next.accent}`}>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-ink-soft">Next project</span>
+          <p class="mt-1 font-display text-2xl font-semibold transition-colors group-hover:text-[--accent]">{next.name}</p>
         </div>
-      </section>
-    )
-  }
-
-  <!-- NEXT -->
-  <section class="mx-auto max-w-5xl px-6 py-16">
-    <a href={`/work/${next.slug}`} class="group flex items-center justify-between gap-4 rounded-2xl border border-[--color-line] bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-lg">
-      <div>
-        <span class="text-xs font-semibold uppercase tracking-wider text-ink-soft">Next project</span>
-        <p class="mt-1 font-display text-2xl font-semibold transition-colors group-hover:text-[--color-marine]">{next.name}</p>
-      </div>
-      <span class="text-2xl transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
-    </a>
-  </section>
+        <span class="text-2xl transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+      </a>
+    </section>
+  </div>
 </Base>

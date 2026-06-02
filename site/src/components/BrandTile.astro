@@ -1,0 +1,46 @@
+---
+import type { Brand } from '../data/ventures';
+
+interface Props {
+  brand: Brand;
+  name: string;
+  accent?: string;
+  /** card = grid tile, hero = larger detail header */
+  variant?: 'card' | 'hero';
+}
+const { brand, name, accent = '#0E7C86', variant = 'card' } = Astro.props;
+const logoH = variant === 'hero' ? 'max-h-28 md:max-h-36' : 'max-h-20 md:max-h-24';
+const wordSize = variant === 'hero' ? 'text-6xl md:text-7xl' : 'text-4xl md:text-5xl';
+---
+<div
+  class="relative flex h-full w-full items-center justify-center overflow-hidden"
+  style={`background:${brand.bg}`}
+>
+  <!-- subtle texture -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.05]"
+    style={`background-image:radial-gradient(circle at 1px 1px, ${brand.tone === 'dark' ? '#fff' : '#000'} 1px, transparent 0); background-size:20px 20px;`}
+  >
+  </div>
+
+  {
+    brand.logo ? (
+      <img
+        src={brand.logo}
+        alt={`${name} logo`}
+        loading="lazy"
+        class={`relative w-auto ${logoH} max-w-[78%] object-contain ${brand.tone === 'dark' ? 'drop-shadow-lg' : ''}`}
+      />
+    ) : (
+      <div class={`relative flex items-baseline gap-1 font-display font-semibold tracking-tight ${wordSize}`}>
+        <span style={`color:${brand.tone === 'dark' ? '#FAF8F4' : '#1A1A1A'}`}>{brand.wordmark}</span>
+        {brand.script && (
+          <span class="italic" style={`color:${accent}; transform:rotate(-5deg); display:inline-block`}>
+            {brand.script}
+          </span>
+        )}
+        {!brand.script && <span class="ml-0.5 h-2.5 w-2.5 self-end rounded-full" style={`background:${accent}`} />}
+      </div>
+    )
+  }
+</div>

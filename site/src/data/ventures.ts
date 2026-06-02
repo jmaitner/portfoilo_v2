@@ -7,35 +7,45 @@ export interface SubProject {
   link?: string;
 }
 
+export interface Brand {
+  /** logo image path under /img/logos, if a logo exists */
+  logo?: string;
+  /** fallback wordmark text rendered when there is no logo */
+  wordmark?: string;
+  /** optional second word rendered in a script/accent style (e.g. La Lancha "boat") */
+  script?: string;
+  /** CSS background for the brand tile */
+  bg: string;
+  /** controls overlay/text contrast on the tile */
+  tone: 'light' | 'dark';
+}
+
 export interface Venture {
   slug: string;
   name: string;
   client: string;
   tagline: string;
-  /** short label for the card */
   kicker: string;
   status: Status;
   liveUrl?: string;
   liveLabel?: string;
   repoUrl?: string;
   stack: string[];
-  /** the problem narrative */
   problem: string;
-  /** what was built */
   built: string;
-  /** how AI was leveraged */
   ai: string;
-  /** 2-4 proof points */
   highlights: string[];
-  /** hero image path under /img, or null to use a typographic card */
+  /** immersive photo hero/cover for the detail page */
   cover?: string;
-  /** gallery image paths under /img */
   gallery?: string[];
-  /** optional sub-projects (umbrella case studies) */
   subProjects?: SubProject[];
-  /** accent gradient pair for typographic covers */
-  gradient?: [string, string];
   outcome: string;
+  /** per-brand accent color (detail page identity) */
+  accent: string;
+  /** brand-tile config for the home grid */
+  brand: Brand;
+  /** one-word category for the filter row */
+  category: 'Product' | 'Client site' | 'Tooling';
 }
 
 export const ventures: Venture[] = [
@@ -43,17 +53,20 @@ export const ventures: Venture[] = [
     slug: 'road-ready-safety',
     name: 'Road Ready Safety',
     client: 'Road Ready Safety — co-founded venture',
-    kicker: 'Online driver-safety education, 9 states',
+    kicker: 'Online driver-safety education · 9 states',
     tagline: 'A state-approved online defensive-driving platform — and the AI tooling, courses, and data engine behind it.',
     status: 'Live',
     liveUrl: 'https://roadreadysafety.com',
     liveLabel: 'roadreadysafety.com',
     repoUrl: 'https://github.com/ventocis/rrsTdlrGuide',
     stack: ['Astro', 'React', 'Next.js', 'Node.js', 'Claude API', 'Python', 'Tailwind'],
+    category: 'Product',
+    accent: '#1A73E8',
+    brand: { logo: '/img/logos/road-ready.png', bg: 'radial-gradient(120% 120% at 50% 0%, #EAF2FF 0%, #F6F4EE 70%)', tone: 'light' },
     problem:
       'Drivers who need to dismiss a ticket or lower insurance face a maze of confusing, fee-padded course options and court-specific rules. Course providers, meanwhile, have to build state-compliant curricula and keep them accurate as the law changes — a slow, expensive, error-prone process.',
     built:
-      'Road Ready Safety is a live online defensive-driving platform, state-approved across nine states. In Texas it ships a TDLR-approved 6-hour course at a flat $28 — no hidden fees, instant certificate, unlimited quiz attempts, no final exam. Around the product I built an entire support system: live comparison/marketing sites, an AI legal-research bot, a competitor pricing scraper, and full state-compliant course curricula.',
+      'Road Ready Safety is a live online defensive-driving platform, state-approved across nine states. In Texas it ships a TDLR-approved 6-hour course at a flat $28 — no hidden fees, instant certificate, unlimited quiz attempts, no final exam. Around the product I built an entire support system: a live comparison/directory site, an AI legal-research bot, a competitor pricing scraper, and full state-compliant course curricula.',
     ai:
       'AI is woven through the venture: Claude (Sonnet 4.6) with its web-search tool powers an automated legal-research bot that compiled Driver-Safety-Course procedures across 25 Texas municipal courts into structured, confidence-scored data; AI-assisted authoring and a legal-accuracy audit produced state-submission-ready course curricula verified against current statute.',
     highlights: [
@@ -62,17 +75,16 @@ export const ventures: Venture[] = [
       'TX Competitor Scraper: Python + Playwright pipeline over ~150 sites with HTML-fingerprint duplicate detection to unmask white-label providers',
       'State-approved course curricula (Texas, Virginia DIC, Florida BDI) authored and legally audited against current statute',
     ],
-    gradient: ['#0E7C86', '#0A5A62'],
     subProjects: [
       {
         name: 'roadreadysafety.com/texas',
-        blurb: 'The live TDLR-approved Texas course: $28 flat, instant certificate, court-accepted, eligibility checker.',
+        blurb: 'The live TDLR-approved Texas course: $28 flat, instant certificate, court-accepted, with an eligibility checker.',
         stack: ['Live product'],
         link: 'https://roadreadysafety.com/texas',
       },
       {
-        name: 'TDLR Guide (txcourseguide.com)',
-        blurb: 'Live comparison + directory site helping Texans pick an approved course by city, with an eligibility checker and court info.',
+        name: 'TX Course Guide',
+        blurb: 'Live comparison + directory site (txcourseguide.com) helping Texans pick an approved course by city, with an eligibility checker and court info.',
         stack: ['Astro 4', 'React', 'GA4', 'CI/CD'],
         link: 'https://txcourseguide.com',
       },
@@ -104,6 +116,9 @@ export const ventures: Venture[] = [
     repoUrl: 'https://github.com/jmaitner/lalancha',
     liveLabel: 'domain launching soon',
     stack: ['Astro', 'Cloudflare Workers', 'Google Apps Script', 'Stripe', 'JotForm', 'Google Calendar/Sheets'],
+    category: 'Product',
+    accent: '#444AEB',
+    brand: { wordmark: 'lancha', script: 'boat', bg: 'linear-gradient(160deg, #FFFDEF 0%, #FBF3FF 100%)', tone: 'light' },
     problem:
       'A solo charter operator cannot manually juggle bookings across platforms, calendar conflicts, deposits, signed legal waivers, fuel invoicing, and review requests. Double-bookings and missed paperwork cost real revenue and create liability.',
     built:
@@ -137,6 +152,9 @@ export const ventures: Venture[] = [
     liveLabel: 'grandsons-construction.pages.dev',
     repoUrl: 'https://github.com/jmaitner/construction-site',
     stack: ['Astro 6', 'Tailwind 4', 'Cloudflare Workers', 'Claude API', 'Google Sheets'],
+    category: 'Client site',
+    accent: '#2D5441',
+    brand: { logo: '/img/logos/grandsons.png', bg: 'linear-gradient(155deg, #1E3A2F 0%, #142819 100%)', tone: 'dark' },
     problem:
       'A small contractor loses leads when prospects wait days for a callback just to get a ballpark price. The lead goes cold and the competitor who answered first wins the job.',
     built:
@@ -170,6 +188,9 @@ export const ventures: Venture[] = [
     liveLabel: 'thegratefulteam.com',
     repoUrl: 'https://github.com/jmaitner/the-grateful-team-website',
     stack: ['HTML/CSS/JS', 'Cloudflare Pages', 'Cloudflare Workers', 'Klaviyo'],
+    category: 'Client site',
+    accent: '#7A2FA8',
+    brand: { logo: '/img/logos/grateful.png', bg: 'radial-gradient(120% 120% at 50% 30%, #232323 0%, #121212 100%)', tone: 'dark' },
     problem:
       'The team needed a public face to recruit riders of every fitness level and give them logistics, gear lists, and event info in one place — without a heavyweight CMS.',
     built:
@@ -199,6 +220,9 @@ export const ventures: Venture[] = [
     status: 'Shipped',
     repoUrl: 'https://github.com/jmaitner/jackson-bot',
     stack: ['Cloudflare Workers', 'Claude Sonnet 4.6', 'Cloudflare KV', 'React', 'Vite'],
+    category: 'Tooling',
+    accent: '#0E7C86',
+    brand: { wordmark: 'Labs', bg: 'linear-gradient(155deg, #20242E 0%, #0F1115 100%)', tone: 'dark' },
     problem:
       'Two different itches: recruiters want a fast, honest read on fit before a call; and contractors waste real money on inaccurate materials takeoffs. Both are solvable with a small, sharp tool.',
     built:
@@ -211,7 +235,6 @@ export const ventures: Venture[] = [
       'Waterfront: domain formulas (joists, decking rows, fasteners, leftover math) isolated in a rules module',
       'Waterfront: localStorage-persisted pricing config and print-to-PDF / CSV customer quotes',
     ],
-    gradient: ['#2A2E37', '#0F1115'],
     subProjects: [
       {
         name: 'Jackson-bot',
