@@ -1,0 +1,11 @@
+# dependencies & build output (site/)
+site/node_modules/
+site/dist/
+site/.astro/
+
+# macOS
+.DS_Store
+
+# env
+.env
+.env.*

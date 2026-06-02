@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap');
+
+@theme {
+  /* Ink + paper */
+  --color-ink: #0F1115;
+  --color-ink-soft: #2A2E37;
+  --color-paper: #FAF8F4;
+  --color-paper-dim: #F1ECE3;
+  --color-line: #E4DDD1;
+
+  /* Marine teal accent */
+  --color-marine: #0E7C86;
+  --color-marine-dark: #0A5A62;
+  --color-marine-light: #3AA0A8;
+  --color-marine-wash: #E2F0F0;
+
+  /* Amber CTA */
+  --color-amber: #E0A23B;
+  --color-amber-dark: #C28420;
+
+  /* Status hues */
+  --color-status-live: #1F9D57;
+  --color-status-shipped: #0E7C86;
+  --color-status-active: #3A6EA5;
+  --color-status-proto: #C28420;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+/* Scroll-reveal: hidden until .is-visible toggled by IntersectionObserver */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* Tasteful text selection */
+::selection {
+  background: var(--color-marine);
+  color: #fff;
+}
+
+/* Fluid display type helper */
+.display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+}

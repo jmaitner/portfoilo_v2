@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+const year = 2026;
+---
+<footer id="contact" class="border-t border-[--color-line] bg-ink text-paper">
+  <div class="mx-auto max-w-6xl px-6 py-16">
+    <div class="grid gap-10 md:grid-cols-[1.5fr_1fr]">
+      <div>
+        <p class="font-display text-3xl font-semibold leading-tight md:text-4xl">
+          Have a bottleneck worth<br />building software around?
+        </p>
+        <p class="mt-4 max-w-md text-paper/70">
+          I take on a small number of client builds and I’m open to the right full-time role. Tell me what’s slow,
+          manual, or losing you money.
+        </p>
+        <a
+          href={`mailto:${site.email}`}
+          class="mt-6 inline-flex items-center gap-2 rounded-full bg-[--color-amber] px-6 py-3 font-semibold text-ink transition-transform hover:-translate-y-0.5"
+        >
+          {site.email}
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="flex flex-col gap-3 text-sm md:items-end">
+        <span class="text-paper/50">Elsewhere</span>
+        <a href={site.github} target="_blank" rel="noopener" class="transition-colors hover:text-[--color-amber]">GitHub ↗</a>
+        <a href={site.linkedin} target="_blank" rel="noopener" class="transition-colors hover:text-[--color-amber]">LinkedIn ↗</a>
+        <a href="/#work" class="transition-colors hover:text-[--color-amber]">Selected work</a>
+      </div>
+    </div>
+    <div class="mt-14 flex flex-col items-start justify-between gap-2 border-t border-paper/15 pt-6 text-xs text-paper/40 sm:flex-row sm:items-center">
+      <span>© {year} {site.name}. Built with Astro + Tailwind.</span>
+      <span>{site.domain}</span>
+    </div>
+  </div>
+</footer>

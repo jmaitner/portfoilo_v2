@@ -1,0 +1,16 @@
+---
+interface Props {
+  status: 'Live' | 'Shipped' | 'Active' | 'Prototype';
+}
+const { status } = Astro.props;
+const map: Record<string, string> = {
+  Live: 'bg-[--color-status-live] text-white',
+  Shipped: 'bg-[--color-status-shipped] text-white',
+  Active: 'bg-[--color-status-active] text-white',
+  Prototype: 'bg-[--color-status-proto] text-white',
+};
+---
+<span class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide ${map[status]}`}>
+  <span class="h-1.5 w-1.5 rounded-full bg-white/90"></span>
+  {status}
+</span>

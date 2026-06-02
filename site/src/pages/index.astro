@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import VentureCard from '../components/VentureCard.astro';
+import { ventures } from '../data/ventures';
+import { site, stats } from '../data/site';
+
+const highlights = [
+  {
+    quote:
+      'A 10-minute reconciliation engine watches Stripe + JotForm and stamps Paid / Signed back onto every booking — so a one-person charter business never loses paperwork or money.',
+    project: 'La Lancha',
+    slug: 'la-lancha',
+  },
+  {
+    quote:
+      'A Cloudflare Worker calls Claude to write a contractor-credible quote the instant a lead arrives — with layered fallbacks so the customer moment never breaks.',
+    project: "Grandson's Construction",
+    slug: 'grandsons-construction',
+  },
+  {
+    quote:
+      'A Claude web-search bot researched 25 Texas courts into structured, confidence-scored data — with retry and auto-resume built for real rate limits.',
+    project: 'Road Ready Safety',
+    slug: 'road-ready-safety',
+  },
+];
+---
+<Base>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div
+      class="pointer-events-none absolute inset-0 -z-10 opacity-[0.06]"
+      style="background-image:radial-gradient(circle at 1px 1px, var(--color-ink) 1px, transparent 0); background-size:22px 22px;"
+    >
+    </div>
+    <div class="mx-auto max-w-6xl px-6 pb-20 pt-20 md:pb-28 md:pt-28">
+      <p class="reveal mb-5 inline-flex items-center gap-2 rounded-full border border-[--color-line] bg-white/60 px-4 py-1.5 text-sm font-medium text-ink-soft">
+        <span class="h-1.5 w-1.5 rounded-full bg-[--color-status-live]"></span>
+        {site.role} · available for client builds & full-time roles
+      </p>
+      <h1 class="reveal display-xl max-w-4xl">
+        I find a business’s real <span class="text-[--color-marine]">bottleneck</span>, then build the system that fixes it.
+      </h1>
+      <p class="reveal mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+        I’m {site.name} — a product builder and AI engineer. From a live boat-charter booking platform to a
+        nine-state driver-safety business with AI tooling underneath it, I ship real software that earns its keep.
+      </p>
+      <div class="reveal mt-8 flex flex-wrap items-center gap-3">
+        <a
+          href="#work"
+          class="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 font-semibold text-white transition-transform hover:-translate-y-0.5"
+        >
+          See the work <span aria-hidden="true">↓</span>
+        </a>
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 rounded-full border border-ink/20 px-6 py-3 font-semibold text-ink transition-colors hover:border-[--color-marine] hover:text-[--color-marine]"
+        >
+          Work with me
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="border-y border-[--color-line] bg-paper-dim/60">
+    <div class="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-[--color-line] px-6 md:grid-cols-4">
+      {
+        stats.map((s) => (
+          <div class="reveal flex flex-col gap-1 px-2 py-8 first:pl-0 md:px-6">
+            <span class="font-display text-3xl font-semibold text-[--color-marine] md:text-4xl">{s.value}</span>
+            <span class="text-sm text-ink-soft">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <div class="reveal mb-12 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-[--color-marine]">Selected work</p>
+        <h2 class="mt-2 display-lg">Five ventures, built end to end.</h2>
+      </div>
+      <p class="max-w-sm text-sm text-ink-soft">
+        Each is a real business problem I scoped, built, and shipped — front end, backend, payments, AI, and the
+        boring operational glue in between.
+      </p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2">
+      {ventures.map((v, i) => <VentureCard venture={v} index={i} />)}
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="border-y border-[--color-line] bg-paper-dim/50">
+    <div class="mx-auto max-w-6xl px-6 py-20 md:py-24">
+      <h2 class="reveal display-lg mb-12 max-w-2xl">The engineering I’m proudest of.</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          highlights.map((h) => (
+            <a
+              href={`/work/${h.slug}`}
+              class="reveal group flex flex-col justify-between rounded-2xl border border-[--color-line] bg-white p-7 transition-all hover:-translate-y-1 hover:shadow-lg"
+            >
+              <p class="font-display text-lg leading-snug text-ink">“{h.quote}”</p>
+              <span class="mt-6 text-sm font-semibold text-[--color-marine]">
+                {h.project} <span class="transition-transform group-hover:translate-x-1 inline-block" aria-hidden="true">→</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach" class="mx-auto max-w-6xl px-6 py-20 md:py-28">
+    <div class="grid gap-12 md:grid-cols-[1fr_1.3fr]">
+      <div class="reveal">
+        <p class="text-sm font-semibold uppercase tracking-wider text-[--color-marine]">Approach</p>
+        <h2 class="mt-2 display-lg">How I work.</h2>
+      </div>
+      <div class="reveal space-y-8">
+        <div>
+          <h3 class="font-display text-xl font-semibold">Start at the bottleneck, not the tech.</h3>
+          <p class="mt-2 text-ink-soft">
+            Every project here began with a business losing time or money somewhere specific — cold leads, lost
+            paperwork, manual research. I build to that, not to a framework checklist.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-display text-xl font-semibold">Use AI where it actually pays off.</h3>
+          <p class="mt-2 text-ink-soft">
+            Instant AI quotes, automated legal research, an agent that pitches me to recruiters — Claude does the
+            reasoning, and I build the safety, fallback, and reliability layers around it so it holds up in production.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-display text-xl font-semibold">Ship it, then make it maintainable.</h3>
+          <p class="mt-2 text-ink-soft">
+            Live Stripe payments, real deployments on Cloudflare, and handoff docs so the owner — or the next
+            engineer — can run it without me. Done means in production and supportable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
