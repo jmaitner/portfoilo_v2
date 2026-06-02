@@ -1,7 +1,7 @@
-# dependencies & build output (site/)
-site/node_modules/
-site/dist/
-site/.astro/
+# dependencies & build output
+node_modules/
+dist/
+.astro/
 
 # macOS
 .DS_Store

@@ -4,8 +4,12 @@ Personal portfolio site for Jackson Maitner — product builder & AI engineer.
 
 ## Structure
 
+The Astro app lives at the repo root (so Cloudflare Pages auto-detects it).
+
 ```
-site/                 Astro 6 + Tailwind 4 portfolio website (deploys to Cloudflare Pages)
+src/                  Astro pages, layouts, components, data
+public/               Static assets (logos, project photos, favicon)
+astro.config.mjs      Astro + Tailwind (vite pinned to 7.3.3)
 portfolio.md          Source research: every project, problem, stack, AI use, status
 PLAN.md               Design + build plan
 assets-manifest/      Inventory of source images/logos used by the site
@@ -14,7 +18,6 @@ assets-manifest/      Inventory of source images/logos used by the site
 ## Develop
 
 ```bash
-cd site
 npm install
 npm run dev        # http://localhost:4321
 npm run build      # outputs ./dist
@@ -22,8 +25,8 @@ npm run build      # outputs ./dist
 
 ## Deploy (Cloudflare Pages)
 
-Build command `npm run build`, output directory `dist`, **root directory `site`**.
-The site target domain is `jacksonmaitner.com` (set in `site/astro.config.mjs`).
+Auto-detected as Astro. Build command `npm run build`, output directory `dist`,
+**root directory `/` (default)**. Target domain `jacksonmaitner.com` (set in `astro.config.mjs`).
 
 ## The work
 
