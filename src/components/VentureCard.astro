@@ -13,7 +13,7 @@ const num = String(index + 1).padStart(2, '0');
 ---
 <a
   href={`/work/${venture.slug}`}
-  class="reveal group relative flex flex-col overflow-hidden rounded-2xl border border-[--color-line] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
+  class="reveal group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
   style={`--accent:${venture.accent}`}
 >
   <!-- brand tile -->
@@ -43,7 +43,7 @@ const num = String(index + 1).padStart(2, '0');
       {venture.stack.length > 4 && <span class="self-center text-xs text-ink-soft/60">+{venture.stack.length - 4}</span>}
     </div>
 
-    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-[--accent]">
+    <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-ink transition-colors group-hover:text-(--accent)">
       Read the case study
       <span class="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
     </span>

@@ -1,13 +1,14 @@
 ---
 interface Props {
-  status: 'Live' | 'Shipped' | 'Active' | 'Prototype';
+  status: 'Live' | 'Shipped' | 'Active' | 'Prototype' | 'Coming soon';
 }
 const { status } = Astro.props;
 const map: Record<string, string> = {
-  Live: 'bg-[--color-status-live] text-white',
-  Shipped: 'bg-[--color-status-shipped] text-white',
-  Active: 'bg-[--color-status-active] text-white',
-  Prototype: 'bg-[--color-status-proto] text-white',
+  Live: 'bg-status-live text-white',
+  Shipped: 'bg-status-shipped text-white',
+  Active: 'bg-status-active text-white',
+  Prototype: 'bg-status-proto text-white',
+  'Coming soon': 'bg-ink/70 text-white',
 };
 ---
 <span class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide ${map[status]}`}>

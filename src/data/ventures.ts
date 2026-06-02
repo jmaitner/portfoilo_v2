@@ -1,4 +1,4 @@
-export type Status = 'Live' | 'Shipped' | 'Active' | 'Prototype';
+export type Status = 'Live' | 'Shipped' | 'Active' | 'Prototype' | 'Coming soon';
 
 export interface SubProject {
   name: string;
@@ -35,16 +35,16 @@ export interface Venture {
   built: string;
   ai: string;
   highlights: string[];
-  /** immersive photo hero/cover for the detail page */
+  /** screenshot used as the detail-page cover */
   cover?: string;
   gallery?: string[];
   subProjects?: SubProject[];
   outcome: string;
   /** per-brand accent color (detail page identity) */
   accent: string;
-  /** brand-tile config for the home grid */
+  /** brand-tile config for the home grid + detail fallback */
   brand: Brand;
-  /** one-word category for the filter row */
+  /** one-word category */
   category: 'Product' | 'Client site' | 'Tooling';
 }
 
@@ -53,8 +53,8 @@ export const ventures: Venture[] = [
     slug: 'road-ready-safety',
     name: 'Road Ready Safety',
     client: 'Road Ready Safety — co-founded venture',
-    kicker: 'Online driver-safety education · 9 states',
-    tagline: 'A state-approved online defensive-driving platform — and the AI tooling, courses, and data engine behind it.',
+    kicker: 'Online traffic-safety courses · 9 states',
+    tagline: 'An online traffic-school course people take to dismiss a ticket or lower their insurance — now live in nine states — plus the behind-the-scenes tools that keep it running.',
     status: 'Live',
     liveUrl: 'https://roadreadysafety.com',
     liveLabel: 'roadreadysafety.com',
@@ -64,89 +64,85 @@ export const ventures: Venture[] = [
     accent: '#1A73E8',
     brand: { logo: '/img/logos/road-ready.png', bg: 'radial-gradient(120% 120% at 50% 0%, #EAF2FF 0%, #F6F4EE 70%)', tone: 'light' },
     problem:
-      'Drivers who need to dismiss a ticket or lower insurance face a maze of confusing, fee-padded course options and court-specific rules. Course providers, meanwhile, have to build state-compliant curricula and keep them accurate as the law changes — a slow, expensive, error-prone process.',
+      'When you get a traffic ticket, picking the right course is confusing. Every option hides fees, and every court has its own rules. The company selling the course also has to keep all of that information correct in every state — which is slow work and easy to get wrong.',
     built:
-      'Road Ready Safety is a live online defensive-driving platform, state-approved across nine states. In Texas it ships a TDLR-approved 6-hour course at a flat $28 — no hidden fees, instant certificate, unlimited quiz attempts, no final exam. Around the product I built an entire support system: a live comparison/directory site, an AI legal-research bot, a competitor pricing scraper, and full state-compliant course curricula.',
+      'A simple course you can finish on your phone. In Texas it costs a flat $28 with no surprise fees, you get your certificate the second you finish, and there is no stressful final exam. Behind the scenes I built the tools that keep the whole operation running and the information accurate.',
     ai:
-      'AI is woven through the venture: Claude (Sonnet 4.6) with its web-search tool powers an automated legal-research bot that compiled Driver-Safety-Course procedures across 25 Texas municipal courts into structured, confidence-scored data; AI-assisted authoring and a legal-accuracy audit produced state-submission-ready course curricula verified against current statute.',
+      'I used AI to do the slow research for us. A program reads court websites across Texas and pulls out each court’s rules — fees, deadlines, how to turn in your certificate — and saves it all in one clean, organized list, noting how confident it is about each answer. AI also helped write the actual course lessons and check them against current law.',
     highlights: [
-      'Live in 9 states; Texas course is TDLR-approved at a flat $28 with no hidden fees',
-      'CourtResearchTX: a Claude web-search bot that researched 25 Texas courts with retry/auto-resume and confidence scoring (1,700+ lines of structured output)',
-      'TX Competitor Scraper: Python + Playwright pipeline over ~150 sites with HTML-fingerprint duplicate detection to unmask white-label providers',
-      'State-approved course curricula (Texas, Virginia DIC, Florida BDI) authored and legally audited against current statute',
+      'Live in nine states; the Texas course is a flat $28 with no hidden fees',
+      'A program that reads 25 Texas court websites and turns their rules into one organized list — and picks up where it left off if it gets interrupted',
+      'A tool that checks ~150 competitor websites and spots which ones are secretly the same company hiding behind different names',
+      'Full courses written and fact-checked against state law, ready to hand to the DMV (Texas, Virginia, Florida)',
     ],
+    cover: '/img/shots/road-ready.jpg',
+    gallery: ['/img/shots/txcourseguide.jpg'],
     subProjects: [
       {
         name: 'roadreadysafety.com/texas',
-        blurb: 'The live TDLR-approved Texas course: $28 flat, instant certificate, court-accepted, with an eligibility checker.',
+        blurb: 'The live Texas course: a flat $28, instant certificate, accepted by every Texas court, with a quick eligibility checker.',
         stack: ['Live product'],
         link: 'https://roadreadysafety.com/texas',
       },
       {
         name: 'TX Course Guide',
-        blurb: 'Live comparison + directory site (txcourseguide.com) helping Texans pick an approved course by city, with an eligibility checker and court info.',
-        stack: ['Astro 4', 'React', 'GA4', 'CI/CD'],
+        blurb: 'A live website (txcourseguide.com) that helps Texans compare approved courses by city and check what their court needs.',
+        stack: ['Astro', 'React', 'GA4'],
         link: 'https://txcourseguide.com',
       },
       {
-        name: 'CourtResearchTX',
-        blurb: 'Node.js bot using Claude + web-search to compile court DSC procedures into structured JSON with confidence levels.',
-        stack: ['Node.js', 'Claude Sonnet 4.6', 'web_search tool'],
+        name: 'Court research tool',
+        blurb: 'A program that uses AI to read 25 court websites and save each court’s rules as clean, organized data.',
+        stack: ['Node.js', 'Claude API'],
       },
       {
-        name: 'TX Competitor Scraper',
-        blurb: 'Scrapes ~150 competitor sites for pricing/features; fingerprints HTML structure to group white-label templates.',
-        stack: ['Python', 'Playwright', 'BeautifulSoup', 'pandas'],
+        name: 'Competitor checker',
+        blurb: 'Scans ~150 competitor sites for prices and features, and flags look-alike sites run by the same company.',
+        stack: ['Python', 'Playwright'],
       },
       {
-        name: 'State course curricula',
-        blurb: 'Full Virginia DIC (16 modules, statute-audited) and Florida BDI courses authored for DMV submission, plus LMS import pipelines.',
-        stack: ['Curriculum design', 'Legal audit', 'Content tooling'],
+        name: 'The courses',
+        blurb: 'Full driver-improvement courses written and fact-checked against state law (Virginia, Florida), plus the tools to load them online.',
+        stack: ['Course writing', 'Legal fact-check'],
       },
     ],
-    outcome: 'Live and selling in 9 states. The flagship venture — product, AI tooling, data, and compliant content all built in-house.',
+    outcome: 'Live and making sales in nine states. The course site, the AI tools, the data, and the lessons were all built in-house.',
   },
   {
     slug: 'la-lancha',
     name: 'La Lancha',
     client: 'Luis Vecchio — private boat charters, Chicago',
-    kicker: 'Booking site + automated operations backend',
-    tagline: 'A booking website and a fully automated back-office for a one-boat charter business on Lake Michigan.',
-    status: 'Shipped',
+    kicker: 'Booking site + an automatic back office',
+    tagline: 'A booking website and a hands-off “back office” for a one-boat charter business on Lake Michigan.',
+    status: 'Live',
+    liveUrl: 'https://site.lanchaboat.com',
+    liveLabel: 'site.lanchaboat.com',
     repoUrl: 'https://github.com/jmaitner/lalancha',
-    liveLabel: 'domain launching soon',
     stack: ['Astro', 'Cloudflare Workers', 'Google Apps Script', 'Stripe', 'JotForm', 'Google Calendar/Sheets'],
     category: 'Product',
     accent: '#444AEB',
     brand: { wordmark: 'lancha', script: 'boat', bg: 'linear-gradient(160deg, #FFFDEF 0%, #FBF3FF 100%)', tone: 'light' },
     problem:
-      'A solo charter operator cannot manually juggle bookings across platforms, calendar conflicts, deposits, signed legal waivers, fuel invoicing, and review requests. Double-bookings and missed paperwork cost real revenue and create liability.',
+      'One person runs the whole boat business. Keeping track of bookings, payments, signed waivers, and follow-ups by hand is a headache — and one double-booking or one missing signed form costs real money.',
     built:
-      'An Astro marketing + booking site (live per-date pricing and availability) backed by a single Google Apps Script web app that runs the entire operation. A new booking checks the Google Calendar with a race-condition guard, auto-creates the event, spins up a Drive folder, logs the booking, seeds the guest roster, and fires templated onboarding emails to guest and owner.',
+      'A website where customers pick a date and book a trip. The moment they book, everything else happens on its own: it checks the calendar so two trips never overlap, saves the booking, and emails both the customer and the owner. It also collects the signed agreement and the payment, and chases down anything that’s missing.',
     ai:
-      'Built rapidly with AI-assisted development. A maintainer primer (CLAUDE.md) encodes the full data flow so the system stays AI-maintainable — any future Claude session can pick it up cold.',
+      'I built it quickly with AI help, and I left behind a plain-English instruction file so the system is easy to understand and change later — even for the next person (or AI) who works on it.',
     highlights: [
-      'Live Stripe payments via prefilled links + JotForm charter agreement & waivers',
-      'A 10-minute reconciliation timer reads JotForm→Sheets data and stamps Paid / AgreementSigned / WaiverSigned back onto bookings, alerting on payment-amount mismatches',
-      'Captain post-charter form auto-computes fuel cost and emails the owner what to invoice',
-      'Daily triggers: waiver-reminder digests and automated Google-review requests to finished charters',
+      'Takes real card payments through Stripe and collects signed waivers automatically',
+      'Every 10 minutes it checks who has paid and signed, updates each booking, and flags anything that doesn’t add up',
+      'After each trip, the captain fills out one short form and the system works out the fuel charge and emails the owner what to bill',
+      'Sends waiver reminders and asks happy customers for a Google review — all by itself',
     ],
-    cover: '/img/la-lancha/quarters1.jpg',
-    gallery: [
-      '/img/la-lancha/quarters4.jpg',
-      '/img/la-lancha/quarters7.jpg',
-      '/img/la-lancha/quarters11.jpg',
-      '/img/la-lancha/quarters16.jpg',
-      '/img/la-lancha/quarters19.jpg',
-    ],
-    outcome: 'Shipped with live external integrations (Stripe live, Google Workspace, JotForm). Running the business today.',
+    cover: '/img/shots/la-lancha.jpg',
+    outcome: 'Up and running the business today, with live payments and real customers.',
   },
   {
     slug: 'grandsons-construction',
     name: "Grandson's Construction",
     client: "Grandson's Construction LLC — decks & fences, West Michigan",
-    kicker: 'Contractor site with an AI instant-quote engine',
-    tagline: 'A contractor marketing site that returns an instant, AI-generated quote the moment a prospect asks.',
+    kicker: 'Contractor site that quotes you instantly',
+    tagline: 'A website for a deck-and-fence builder that gives visitors a real price estimate in seconds.',
     status: 'Live',
     liveUrl: 'https://grandsons-construction.pages.dev',
     liveLabel: 'grandsons-construction.pages.dev',
@@ -156,33 +152,26 @@ export const ventures: Venture[] = [
     accent: '#2D5441',
     brand: { logo: '/img/logos/grandsons.png', bg: 'linear-gradient(155deg, #1E3A2F 0%, #142819 100%)', tone: 'dark' },
     problem:
-      'A small contractor loses leads when prospects wait days for a callback just to get a ballpark price. The lead goes cold and the competitor who answered first wins the job.',
+      'When someone wants a new deck, they usually wait days for a callback just to hear a rough price — and by then they’ve often hired whoever answered first. This builder was losing jobs to slow follow-up.',
     built:
-      'An Astro 6 + Tailwind 4 site with a local-SEO blog (deck cost, permits, Michigan-winter decking) and a Cloudflare Worker quote engine. The worker validates the lead, runs a honeypot anti-spam check, calls Claude to write a tailored estimate, and appends the lead to Google Sheets — all in the moment the prospect is most interested.',
+      'A clean website with helpful local articles that show up on Google, plus a quote tool: a visitor describes what they want, and the site writes back a real, believable price estimate in seconds and saves their details so the builder can follow up.',
     ai:
-      'Claude is the core of the feature: it turns raw form input into a contractor-credible written estimate in real time. The engine is built to never break the customer moment — if Claude errors it serves a deterministic fallback quote; if the Sheets write fails it still returns the quote and flags the save for monitoring.',
+      'AI writes the quote. The visitor’s answers go to Claude, which turns them into a price estimate that reads like the contractor wrote it himself. I built it so it never leaves a customer hanging — if the AI ever hiccups, a backup estimate still shows up right away.',
     highlights: [
-      'AI instant-quote Cloudflare Worker with graceful, layered fallbacks',
-      'Local-SEO blog targeting West Michigan deck-buyer intent searches',
-      'Honeypot anti-spam + consent validation; secrets held in Cloudflare, never committed',
-      'Per-business config so the same engine can be re-skinned for other contractors',
+      'Instant AI price estimates, with a backup so a customer always gets an answer',
+      'Helpful local articles (deck costs, permits, building through Michigan winters) that pull in Google traffic',
+      'Spam protection and consent checks built in; passwords and keys kept safe, never in the code',
+      'Set up so the same quote tool can be reused for other contractors',
     ],
-    cover: '/img/grandsons/deck-01.jpg',
-    gallery: [
-      '/img/grandsons/deck-03.jpg',
-      '/img/grandsons/deck-05.jpg',
-      '/img/grandsons/deck-07.jpg',
-      '/img/grandsons/deck-09.jpg',
-      '/img/grandsons/fence-01.jpg',
-    ],
-    outcome: 'Live for the client. The AI quote engine is the differentiator most contractor sites do not have.',
+    cover: '/img/shots/grandsons.jpg',
+    outcome: 'Live for the client. Instant quotes are something almost no other contractor website offers.',
   },
   {
     slug: 'grateful-team',
     name: 'The Grateful Team',
     client: 'Make-A-Wish charity cycling team, Grand Rapids',
-    kicker: 'Recruitment + info site for a charity ride',
-    tagline: 'A public home for a charity cycling team raising funds across the Make-A-Wish Wish-A-Mile 300.',
+    kicker: 'Website for a charity bike team',
+    tagline: 'A website for a charity bike team that rides to raise money for Make-A-Wish.',
     status: 'Live',
     liveUrl: 'https://thegratefulteam.com',
     liveLabel: 'thegratefulteam.com',
@@ -192,64 +181,81 @@ export const ventures: Venture[] = [
     accent: '#7A2FA8',
     brand: { logo: '/img/logos/grateful.png', bg: 'radial-gradient(120% 120% at 50% 30%, #232323 0%, #121212 100%)', tone: 'dark' },
     problem:
-      'The team needed a public face to recruit riders of every fitness level and give them logistics, gear lists, and event info in one place — without a heavyweight CMS.',
+      'The team needed one place online to recruit riders of every skill level and give them everything they need — schedules, packing lists, and gear tips — without a complicated, heavy website system.',
     built:
-      'A fast multi-page static site (home, event, group rides, packing list, gear, FAQ, roster with rider "trading cards") with a lightweight JS partial-injection system that shares nav and footer across pages. Full SEO/OpenGraph meta and a join form wired for a Cloudflare Worker → Klaviyo email flow.',
-    ai: 'AI-assisted build and copy; join-form automation planned through a Cloudflare Worker.',
+      'A fast, simple website with several pages: home, event info, group rides, packing list, gear, FAQ, and a roster with a “trading card” for each rider. A sign-up form adds new riders to the team’s email list.',
+    ai: 'AI helped build the pages and write the words; the sign-up form automatically drops new riders into the team’s email tool.',
     highlights: [
-      'Hand-built partial-injection system keeps nav/footer DRY without a framework',
-      'Rider roster "trading cards" make recruitment personal',
-      'Cloudflare Pages hosting with a Worker → Klaviyo join flow',
-      'Mobile-first, accessible, full social-share meta',
+      'The same menu and footer show on every page without a heavy website system',
+      'Rider “trading cards” make joining the team feel personal',
+      'Hosted on Cloudflare; sign-ups flow straight into the email tool',
+      'Looks great on phones, with proper previews when the link is shared',
     ],
-    cover: '/img/grateful/cover.jpg',
-    gallery: [
-      '/img/grateful/wam-1.jpg',
-      '/img/grateful/wam-2.jpg',
-      '/img/grateful/wam-3.jpg',
-      '/img/grateful/wam-4.jpg',
-    ],
-    outcome: 'Live and recruiting. A mission-driven site with clean fundamentals and real photography.',
+    cover: '/img/shots/grateful.jpg',
+    outcome: 'Live and signing up riders. A clear, good-looking site built around real team photos.',
   },
   {
     slug: 'labs',
     name: 'Labs',
-    client: 'Self-directed — AI & product engineering',
-    kicker: 'AI agents & internal tools',
-    tagline: 'Smaller builds that show the range: a serverless AI agent and a domain-specific quoting tool.',
+    client: 'Self-directed — AI & internal tools',
+    kicker: 'An AI assistant & a pricing tool',
+    tagline: 'Two smaller builds that show the range: an AI assistant and a contractor pricing tool.',
     status: 'Shipped',
     repoUrl: 'https://github.com/jmaitner/jackson-bot',
-    stack: ['Cloudflare Workers', 'Claude Sonnet 4.6', 'Cloudflare KV', 'React', 'Vite'],
+    stack: ['Cloudflare Workers', 'Claude API', 'Cloudflare KV', 'React', 'Vite'],
     category: 'Tooling',
     accent: '#0E7C86',
     brand: { wordmark: 'Labs', bg: 'linear-gradient(155deg, #20242E 0%, #0F1115 100%)', tone: 'dark' },
     problem:
-      'Two different itches: recruiters want a fast, honest read on fit before a call; and contractors waste real money on inaccurate materials takeoffs. Both are solvable with a small, sharp tool.',
+      'Two different needs. Recruiters want a quick, honest read on me before they call. And contractors lose money ordering the wrong amount of materials. Each one is fixable with a small, focused tool.',
     built:
-      'Jackson-bot is a serverless AI agent (Cloudflare Workers + Claude Sonnet 4.6) that answers recruiter questions about my background 24/7, with conversation memory, KV-backed rate limiting, anonymized logging, and role-aware resume routing. Waterfront is a React + Vite quoting tool that turns a decking/seawall job spec into an accurate materials takeoff with waste math and a branded customer quote.',
+      'Jackson-bot is an AI assistant that answers questions about my work 24/7 (it’s the same bot you may have just talked to). Waterfront takes a deck or seawall job and works out exactly what materials to buy — including the leftover waste — then prints a clean quote for the customer.',
     ai:
-      'Jackson-bot is AI-native — the entire business logic lives in a 177-line system prompt and Claude does all the conversational reasoning while the Worker handles safety, memory, and routing.',
+      'Jackson-bot runs on Claude. It’s really a carefully written set of instructions that tells the AI how to talk and what it knows about me, with guardrails so it can’t be spammed or misused.',
     highlights: [
-      'Jackson-bot: 30 req/IP/hr rate limiting in Cloudflare KV, IP-anonymized logging, 4 role-specific resume variants behind a /resume redirect',
-      'Jackson-bot: 14-message conversation memory with a voice-tuned system prompt',
-      'Waterfront: domain formulas (joists, decking rows, fasteners, leftover math) isolated in a rules module',
-      'Waterfront: localStorage-persisted pricing config and print-to-PDF / CSV customer quotes',
+      'Jackson-bot: limits abuse (30 messages per visitor per hour), keeps personal info out of its logs, and points recruiters to the right résumé',
+      'Jackson-bot: remembers the last several messages so the conversation flows naturally',
+      'Waterfront: does the tricky material math (boards, framing, fasteners, leftovers) in one place',
+      'Waterfront: saves your prices and prints a tidy PDF or spreadsheet quote',
     ],
     subProjects: [
       {
         name: 'Jackson-bot',
-        blurb: 'A Claude-powered agent on Cloudflare Workers that represents me to recruiters 24/7.',
-        stack: ['Cloudflare Workers', 'Claude Sonnet 4.6', 'KV'],
+        blurb: 'An AI assistant that answers questions about my background around the clock.',
+        stack: ['Cloudflare Workers', 'Claude API'],
         link: 'https://github.com/jmaitner/jackson-bot',
       },
       {
         name: 'Waterfront',
-        blurb: 'A React quoting tool that produces accurate materials takeoffs and branded quotes for a decking/seawall contractor.',
-        stack: ['React 18', 'Vite', 'Tailwind'],
+        blurb: 'A tool that figures out exactly what materials a deck or seawall job needs and prints a clean customer quote.',
+        stack: ['React', 'Vite'],
         link: 'https://github.com/jmaitner/waterfront',
       },
     ],
-    outcome: 'Both shipped. Together they show serverless AI engineering and pragmatic domain tooling.',
+    outcome: 'Both finished and working. Together they show I can build AI tools and practical business tools.',
+  },
+  {
+    slug: 'face2face-fun',
+    name: 'Face2Face Fun',
+    client: 'Face2Face Fun — direct-to-consumer Shopify store',
+    kicker: 'Shopify store · games & party goods',
+    tagline: 'An online store I built on Shopify to sell games and party products straight to shoppers.',
+    status: 'Coming soon',
+    liveLabel: 'face2facefun.com — coming soon',
+    stack: ['Shopify', 'Ecommerce'],
+    category: 'Client site',
+    accent: '#D9603B',
+    brand: { wordmark: 'Face2Face', script: 'Fun', bg: 'linear-gradient(155deg, #2A1B18 0%, #14100F 100%)', tone: 'dark' },
+    problem:
+      'The brand needed its own real online store to sell games and party products directly to customers, instead of relying only on big marketplaces.',
+    built:
+      'A Shopify storefront set up to sell direct to shoppers — product pages, checkout, and the back-end to manage orders. Launching soon; a full write-up will follow.',
+    ai: 'More detail coming at launch.',
+    highlights: [
+      'A direct-to-consumer Shopify storefront, built to sell games and party goods',
+      'Launching soon — full case study to follow',
+    ],
+    outcome: 'Coming soon — the store is being prepared for launch at face2facefun.com.',
   },
 ];
 
