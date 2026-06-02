@@ -75,8 +75,8 @@ export const ventures: Venture[] = [
       'A tool that checks ~150 competitor websites and spots which ones are secretly the same company hiding behind different names',
       'Full courses written and fact-checked against state law, ready to hand to the DMV (Texas, Virginia, Florida)',
     ],
-    cover: '/img/shots/road-ready.jpg',
-    gallery: ['/img/shots/txcourseguide.jpg'],
+    cover: '/img/shots/road-ready-texas.jpg',
+    gallery: ['/img/shots/road-ready.jpg', '/img/shots/txcourseguide.jpg'],
     subProjects: [
       {
         name: 'roadreadysafety.com/texas',
@@ -198,8 +198,8 @@ export const ventures: Venture[] = [
     slug: 'labs',
     name: 'Labs',
     client: 'Self-directed — AI & internal tools',
-    kicker: 'An AI assistant & a pricing tool',
-    tagline: 'Two smaller builds that show the range: an AI assistant and a contractor pricing tool.',
+    kicker: 'An AI assistant & two live tools',
+    tagline: 'Smaller builds that show the range — and you can click into the live demos below.',
     status: 'Shipped',
     repoUrl: 'https://github.com/jmaitner/jackson-bot',
     stack: ['Cloudflare Workers', 'Claude API', 'Cloudflare KV', 'React', 'Vite'],
@@ -207,32 +207,39 @@ export const ventures: Venture[] = [
     accent: '#0E7C86',
     brand: { wordmark: 'Labs', bg: 'linear-gradient(155deg, #20242E 0%, #0F1115 100%)', tone: 'dark' },
     problem:
-      'Two different needs. Recruiters want a quick, honest read on me before they call. And contractors lose money ordering the wrong amount of materials. Each one is fixable with a small, focused tool.',
+      'A few different needs. Recruiters want a quick, honest read on me before they call. Contractors lose money ordering the wrong amount of materials. And a crew needs a dead-simple way to clock in and out. Each one is fixable with a small, focused tool.',
     built:
-      'Jackson-bot is an AI assistant that answers questions about my work 24/7 (it’s the same bot you may have just talked to). Waterfront takes a deck or seawall job and works out exactly what materials to buy — including the leftover waste — then prints a clean quote for the customer.',
+      'Jackson-bot is an AI assistant that answers questions about my work 24/7 (it’s the same bot you may have just talked to). Waterfront Takeoff figures out exactly what materials a deck or seawall job needs — including leftover waste — and prints a clean customer quote. Waterfront Payroll is a phone-friendly time clock where a crew taps to clock in and out and an admin reviews the hours. The two Waterfront tools are live demos you can open and try right now.',
     ai:
       'Jackson-bot runs on Claude. It’s really a carefully written set of instructions that tells the AI how to talk and what it knows about me, with guardrails so it can’t be spammed or misused.',
     highlights: [
       'Jackson-bot: limits abuse (30 messages per visitor per hour), keeps personal info out of its logs, and points recruiters to the right résumé',
-      'Jackson-bot: remembers the last several messages so the conversation flows naturally',
-      'Waterfront: does the tricky material math (boards, framing, fasteners, leftovers) in one place',
-      'Waterfront: saves your prices and prints a tidy PDF or spreadsheet quote',
+      'Waterfront Takeoff: does the tricky material math (boards, framing, fasteners, leftovers) and prints a tidy PDF or spreadsheet quote',
+      'Waterfront Payroll: tap-to-clock-in time tracking for a crew, with an admin view to review hours',
+      'All three run on Cloudflare with clear “demo” labels so no one mistakes a sample for the real system',
     ],
+    gallery: ['/img/shots/waterfront.jpg', '/img/shots/waterfront-payroll.jpg'],
     subProjects: [
       {
         name: 'Jackson-bot',
-        blurb: 'An AI assistant that answers questions about my background around the clock.',
+        blurb: 'An AI assistant that answers questions about my background around the clock (you may be using it now).',
         stack: ['Cloudflare Workers', 'Claude API'],
         link: 'https://github.com/jmaitner/jackson-bot',
       },
       {
-        name: 'Waterfront',
-        blurb: 'A tool that figures out exactly what materials a deck or seawall job needs and prints a clean customer quote.',
-        stack: ['React', 'Vite'],
-        link: 'https://github.com/jmaitner/waterfront',
+        name: 'Waterfront Takeoff — try it live',
+        blurb: 'A live demo: enter a deck or seawall job and it works out the exact materials to buy and prints a clean quote.',
+        stack: ['React', 'Vite', 'Cloudflare Workers'],
+        link: 'https://waterfront.jmaitner1.workers.dev',
+      },
+      {
+        name: 'Waterfront Payroll — try it live',
+        blurb: 'A live demo: a phone-friendly crew time clock — tap to clock in/out, with an admin view to review hours.',
+        stack: ['React', 'Cloudflare Workers'],
+        link: 'https://waterfront-payroll.jmaitner1.workers.dev',
       },
     ],
-    outcome: 'Both finished and working. Together they show I can build AI tools and practical business tools.',
+    outcome: 'All shipped and live. Together they show I can build AI tools and practical, hands-on business tools you can actually click through.',
   },
   {
     slug: 'face2face-fun',
